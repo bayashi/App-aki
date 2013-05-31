@@ -1,0 +1,50 @@
+#!perl
+use strict;
+use warnings;
+use App::aki;
+
+my $aki = App::aki->run(@ARGV);
+
+__END__
+
+=head1 NAME
+
+aki - The command-line data processor for web content
+
+=head1 SYNOPSIS
+
+    $ aki [options] URL
+
+=head2 OPTIONS
+
+         --agent         user agent
+         --timeout       connection timeout
+    -m,  --method        HTTP method(default: GET)
+    -p,  --pointer       JSON pointer string(See: L<JSON::Pointer>)
+         --color         colorize the result
+         --raw           show raw content
+
+    -h,  --help          show this help
+    -v,  --version       show the version
+
+=head2 EXAMPLE
+
+    $ aki http://example.com/json --pointer '/foo/bar/0'
+
+=head1 AUTHOR
+
+Dai Okabayashi E<lt>bayashi@cpan.orgE<gt>
+
+
+=head1 SEE ALSO
+
+L<JSON::Pointer>
+
+
+=head1 LICENSE
+
+This module is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself. See L<perlartistic>.
+
+
+=cut
