@@ -11,7 +11,7 @@ use Test::More;
             'content_type' => sub { 'application/json' },
         },
     );
-    is $got, 2, 'pointer';
+    is $got, "---\n2\n---\n", 'pointer';
 }
 
 done_testing;

@@ -13,10 +13,12 @@ use Data::MessagePack;
         },
     );
     is $got, <<'_EXPECT_', 'messagepack';
+---
     foo   [
         1,
         2
     ]
+---
 _EXPECT_
 }
 

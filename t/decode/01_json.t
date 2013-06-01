@@ -12,10 +12,12 @@ use Test::More;
         },
     );
     is $got, <<'_EXPECT_', 'json';
+---
     foo   [
         1,
         2
     ]
+---
 _EXPECT_
 }
 

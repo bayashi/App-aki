@@ -18,10 +18,12 @@ _YAML_
         },
     );
     is $got, <<'_EXPECT_', 'yaml';
+---
     foo   [
         1,
         2
     ]
+---
 _EXPECT_
 }
 

@@ -26,6 +26,7 @@ _XML_
         },
     );
     is $got, <<'_EXPECT_', 'xml';
+---
     members   {
         member   [
             {
@@ -38,6 +39,7 @@ _XML_
             }
         ]
     }
+---
 _EXPECT_
 }
 

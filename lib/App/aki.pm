@@ -81,17 +81,24 @@ sub run {
     }
 
     my $decoded = _decode($config, $res);
+    my $dump    = _dumper($config, $decoded);
+
+    print "---\n$dump\n---\n";
+}
+
+sub _dumper {
+    my ($config, $hash) = @_;
 
     my $dump = Data::Printer::p(
-        $decoded,
+        $hash,
         return_value => 'dump',
         colored      => $config->{color},
         index        => 0,
     );
     $dump =~ s!^[^\n]+\n!!;
-    $dump =~ s!}$!!;
+    $dump =~ s![\r\n]}$!!;
 
-    print $dump;
+    return $dump;
 }
 
 sub _decode {
@@ -101,6 +108,7 @@ sub _decode {
     for my $decoder (@DECODERS) {
         next unless $decoder->{detect}->($res);
         _load_class( _class2path($decoder->{class}) );
+        _show_verbose('decode class', $decoder->{class}) if $config->{verbose};
         $decoded = $decoder->{decode}->($res->content);
         last;
     }
@@ -142,13 +150,31 @@ sub _request {
     my $req = HTTP::Request->new(
         uc($config->{method}) => $config->{url},
     );
+
+    if ($config->{verbose}) {
+        _show_verbose('request', $req->as_string);
+        _show_verbose('headers', $ua->default_headers->as_string);
+    }
+
     my $res = $ua->request($req);
     if ($res->is_success) {
+        if ($config->{verbose}) {
+            _show_verbose('response', $res->status_line);
+            _show_verbose('response content_type', $res->header('Content_Type'));
+            _show_verbose('response content length', length $res->content);
+        }
         return $res;
     }
     else {
         die $res->status_line;
     }
+}
+
+sub _show_verbose {
+    my ($label, $line) = @_;
+
+    $line =~ s![\r\n]+$!!;
+    print "[$label]\n$line\n";
 }
 
 sub _merge_opt {
@@ -163,6 +189,7 @@ sub _merge_opt {
         'agent=s'     => \$config->{agent},
         'color'       => \$config->{color},
         'raw'         => \$config->{raw},
+        'verbose'     => \$config->{verbose},
         'h|help'      => sub {
             _show_usage(1);
         },
