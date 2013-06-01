@@ -22,8 +22,8 @@ aki - The command-line data processor for web content
          --timeout       connection timeout
     -m,  --method        HTTP method(default: GET)
     -p,  --pointer       JSON pointer string(See: L<JSON::Pointer>)
-    -ie, --in-encoding   input encoding
-    -oe, --out-encoding  output encoding
+    -ie, --in-enc        input encoding(default: utf8)
+    -oe, --out-enc       output encoding(default: utf8)
          --color         colorize the result
          --raw           show raw content
          --verbose       show verbose information
