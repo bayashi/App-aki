@@ -27,4 +27,28 @@ _YAML_
 _EXPECT_
 }
 
+{
+    my ($stdout, $stderr, @result) = result(
+        ['http://example.com/json'],
+        [
+            [ 'res', 'content'      => sub {
+                                    return <<_YAML_;
+foo:
+    - 天野アキ
+    - 足立ユイ
+_YAML_
+            } ],
+            [ 'res', 'content_type' => sub { 'application/yaml' } ],
+        ],
+    );
+    is $stdout, <<'_EXPECT_', 'yaml';
+---
+    foo   [
+        "天野アキ",
+        "足立ユイ"
+    ]
+---
+_EXPECT_
+}
+
 done_testing;

@@ -28,6 +28,7 @@ my $builder = Module::Build->new(
         'XML::TreePP' => 0,
         'YAML::Syck' => 0,
         'Data::MessagePack' => 0,
+        'Encode' => 0,
     },
     script_files        => [ 'script/aki' ],
     add_to_cleanup      => [ 'App-aki-*' ],

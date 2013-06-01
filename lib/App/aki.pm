@@ -5,9 +5,11 @@ use Getopt::Long qw/GetOptionsFromArray/;
 use LWP::UserAgent;
 use HTTP::Request;
 use Data::Printer qw//;
+use Encode qw//;
 
 our $VERSION = '0.02';
 
+# Every decode routine MUST return the UNICODE string.
 our %DECODERS = (
     json => +{
         class  => 'JSON',
@@ -31,7 +33,7 @@ our %DECODERS = (
         },
         decode => sub {
             my $content = shift;
-            my $xml = XML::TreePP->new;
+            my $xml = XML::TreePP->new(utf8_flag => 1);
             $xml->parse($content);
         },
     },
@@ -44,6 +46,7 @@ our %DECODERS = (
         },
         decode => sub {
             my $content = shift;
+            $YAML::Syck::ImplicitUnicode = 1;
             YAML::Syck::Load($content);
         },
     },
@@ -56,7 +59,7 @@ our %DECODERS = (
         },
         decode => sub {
             my $content = shift;
-            my $mp = Data::MessagePack->new;
+            my $mp = Data::MessagePack->new->utf8;
             $mp->decode($content);
         },
     },
@@ -79,7 +82,7 @@ sub run {
     my $decoded = _decode($config, $res);
     my $dump    = _dumper($config, $decoded);
 
-    print "---\n$dump\n---\n";
+    print Encode::encode('utf8', "---\n$dump\n---\n");
 }
 
 sub _dumper {
@@ -137,7 +140,7 @@ sub _decoding {
 
     _load_class( _class2path($decoder->{class}) );
     _show_verbose('decode class', $decoder->{class}) if $config->{verbose};
-    return $decoder->{decode}->($res->content);
+    return $decoder->{decode}->($res->content, $res->decoded_content);
 }
 
 sub _error {
