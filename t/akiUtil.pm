@@ -2,8 +2,7 @@ package t::akiUtil;
 use strict;
 use warnings;
 use Test::Mock::LWP;
-use Test::Mock::HTTP::Response;
-use Capture::Tiny qw/capture_stdout/;
+use Capture::Tiny qw/capture/;
 use App::aki;
 use parent qw/Exporter/;
 our @EXPORT_OK = qw/
@@ -13,16 +12,17 @@ our @EXPORT_OK = qw/
 sub result {
     my ($cmd_args, $mock_args) = @_;
 
-    for my $key (keys %{$mock_args}) {
-        $Mock_response->mock(
-            $key => $mock_args->{$key},
-        );
+    for my $r (@{$mock_args}) {
+        my $mock = shift @{$r};
+        my $mock_obj = ($mock eq 'res') ? $Mock_response
+                     : ($mock eq 'req') ? $Mock_request  : $Mock_ua;
+        $mock_obj->mock(@{$r});
     }
 
-    my $stdout = capture_stdout {
+    my ($stdout, $stderr, @result) = capture {
         App::aki->run(@{$cmd_args});
     };
 
-    return $stdout;
+    return($stdout, $stderr, @result);
 }
 

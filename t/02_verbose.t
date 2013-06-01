@@ -2,27 +2,20 @@ use strict;
 use warnings;
 use t::akiUtil qw/result/;
 use Test::More;
-use Test::Mock::LWP;
-use Test::Mock::HTTP::Request;
 
 {
-    $Mock_ua->mock(
-        'default_headers' => sub { Mock::HTTP::Headers->new },
-    );
-    $Mock_req->mock(
-        'as_string' => sub { 'GET http://example.com/json' },
-    );
-
-    my $got = result(
+    my ($stdout, $stderr, @result) = result(
         ['http://example.com/json', '--verbose'],
-        +{
-            'content'      => sub { '{"foo": [1, 2]}' },
-            'content_type' => sub { 'application/json' },
-            'header'       => sub { 'application/json' },
-            'status_line'  => sub { '200 OK' },
-        },
+        [
+            [ 'ua',  'default_headers' => sub { Mock::HTTP::Headers->new } ],
+            [ 'req', 'as_string'       => sub { 'GET http://example.com/json' } ],
+            [ 'res', 'content'      => sub { '{"foo": [1, 2]}' } ],
+            [ 'res', 'content_type' => sub { 'application/json' } ],
+            [ 'res', 'header'       => sub { 'application/json' } ],
+            [ 'res', 'status_line'  => sub { '200 OK' } ],
+        ],
     );
-    is $got, <<"_EXPECT_", 'verbose';
+    is $stdout, <<"_EXPECT_", 'verbose';
 [request]
 GET http://example.com/json
 [headers]

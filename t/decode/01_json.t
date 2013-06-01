@@ -4,14 +4,14 @@ use t::akiUtil qw/result/;
 use Test::More;
 
 {
-    my $got = result(
+    my ($stdout, $stderr, @result) = result(
         ['http://example.com/json'],
-        +{
-            'content'      => sub { '{"foo": [1, 2]}' },
-            'content_type' => sub { 'application/json' },
-        },
+        [
+            [ 'res', 'content'      => sub { '{"foo": [1, 2]}' } ],
+            [ 'res', 'content_type' => sub { 'application/json' } ],
+        ],
     );
-    is $got, <<'_EXPECT_', 'json';
+    is $stdout, <<'_EXPECT_', 'json';
 ---
     foo   [
         1,

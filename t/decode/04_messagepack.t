@@ -5,14 +5,14 @@ use Test::More;
 use Data::MessagePack;
 
 {
-    my $got = result(
+    my ($stdout, $stderr, @result) = result(
         ['http://example.com/json'],
-        +{
-            'content'      => sub { Data::MessagePack->pack( +{ foo => [1,2] } ) },
-            'content_type' => sub { 'application/msgpack' },
-        },
+        [
+            [ 'res', 'content'      => sub { Data::MessagePack->pack( +{ foo => [1,2] } ) } ],
+            [ 'res', 'content_type' => sub { 'application/msgpack' } ],
+        ],
     );
-    is $got, <<'_EXPECT_', 'messagepack';
+    is $stdout, <<'_EXPECT_', 'messagepack';
 ---
     foo   [
         1,

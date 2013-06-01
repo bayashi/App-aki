@@ -4,10 +4,10 @@ use t::akiUtil qw/result/;
 use Test::More;
 
 {
-    my $got = result(
+    my ($stdout, $stderr, @result) = result(
         ['http://example.com/json'],
-        +{
-            'content'      => sub {
+        [
+            [ 'res', 'content'      => sub {
                                     return <<_XML_;
 <?xml version="1.0" encoding="UTF-8"?>
 <members>
@@ -21,11 +21,11 @@ use Test::More;
 </member>
 </members>
 _XML_
-            },
-            'content_type' => sub { 'application/xml' },
-        },
+            } ],
+            [ 'res', 'content_type' => sub { 'application/xml' } ],
+        ],
     );
-    is $got, <<'_EXPECT_', 'xml';
+    is $stdout, <<'_EXPECT_', 'xml';
 ---
     members   {
         member   [
