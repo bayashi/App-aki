@@ -16,7 +16,7 @@ our %DECODERS = (
         detect => sub {
             my $res = shift;
             my $ct = $res->content_type;
-            return 1 if $ct =~ m!json!i || $ct =~ m!javascript!i;
+            return 1 if $ct =~ m!json!i;
         },
         decode => sub {
             my $content = shift;
