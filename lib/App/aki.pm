@@ -6,6 +6,7 @@ use LWP::UserAgent;
 use HTTP::Request;
 use Data::Printer qw//;
 use Encode qw//;
+use File::Spec;
 
 our $VERSION = '0.03';
 
@@ -65,11 +66,13 @@ our %DECODERS = (
     },
 );
 
+our $DEFAULT_RCFILE_NAME = '.akirc';
+
 sub run {
     my $self = shift;
     my @argv = @_;
 
-    my $config = +{};
+    my $config = _read_rc( _rc_file(@argv) );
     _merge_opt($config, @argv);
 
     my $res = _request($config);
@@ -83,6 +86,53 @@ sub run {
     my $dump    = _dumper($config, $decoded);
 
     print Encode::encode($config->{out_enc}, "---\n$dump\n---\n");
+}
+
+sub _read_rc {
+    my $rc_file = shift;
+
+    my %config;
+    for my $dir ('/etc/', $ENV{AKIRC_DIR}, $ENV{HOME}, '.') {
+        next unless $dir;
+        my $file = File::Spec->catfile($dir, $rc_file);
+        next unless -e $file;
+        _parse_rc($file => \%config);
+    }
+    return \%config;
+}
+
+sub _parse_rc {
+    my ($file, $config) = @_;
+
+    open my $fh, '<', $file;
+    while (<$fh>) {
+        chomp;
+        next if /\A\s*\Z/sm;
+        if (/\A(\w+):\s*(.+)\Z/sm) {
+            my ($key, $value) = ($1, $2);
+            if ($key eq 'file') {
+                push @{$config->{$key}}, $value;
+            }
+            else {
+                $config->{$key} = $value;
+            }
+        }
+    }
+    close $fh;
+}
+
+sub _rc_file {
+    my @argv = @_;
+
+    my $rc = 0;
+    for my $opt (@argv) {
+        if ($opt =~ m!--rc=([^\s]+)!) {
+            return $1;
+        }
+        return $opt if $rc == 1;
+        $rc = 1 if $opt eq '--rc';
+    }
+    return $DEFAULT_RCFILE_NAME;
 }
 
 sub _dumper {
@@ -235,6 +285,7 @@ sub _merge_opt {
         'color'       => \$config->{color},
         'raw'         => \$config->{raw},
         'verbose'     => \$config->{verbose},
+        'rc=s'        => \$config->{rc},
         'h|help'      => sub {
             _show_usage(1);
         },
