@@ -34,6 +34,10 @@ aki - The command-line data processor for web content
 =head2 EXAMPLE
 
     $ aki http://example.com/json --pointer '/foo/bar/0'
+    ---
+        baz     123
+        qux     "foobar"
+    ---
 
 =head1 AUTHOR
 
