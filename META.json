@@ -1,0 +1,62 @@
+{
+   "abstract" : "The command-line data processor for web content",
+   "author" : [
+      "Dai Okabayashi <bayashi@cpan.org>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "Module::Build version 0.4005, CPAN::Meta::Converter version 2.130880",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "App-aki",
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "Capture::Tiny" : "0",
+            "Exporter" : "0",
+            "Test::Mock::LWP" : "0",
+            "Test::More" : "0.88"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "Module::Build" : "0.38"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Data::MessagePack" : "0",
+            "Data::Printer" : "0",
+            "Getopt::Long" : "0",
+            "HTTP::Request" : "0",
+            "JSON" : "0",
+            "JSON::Pointer" : "0",
+            "LWP::UserAgent" : "0",
+            "Pod::Usage" : "0",
+            "XML::TreePP" : "0",
+            "YAML::Syck" : "0",
+            "perl" : "5.008001"
+         }
+      }
+   },
+   "provides" : {
+      "App::aki" : {
+         "file" : "lib/App/aki.pm",
+         "version" : "0.01"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "license" : [
+         "http://dev.perl.org/licenses/"
+      ],
+      "repository" : {
+         "url" : "http://github.com/bayashi/App-aki"
+      }
+   },
+   "version" : "0.01"
+}
