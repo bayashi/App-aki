@@ -100,6 +100,23 @@ sub _dumper {
 sub _decode {
     my ($config, $res) = @_;
 
+    my $decoded = _decoder($config, $res);
+
+    if ($decoded && $config->{pointer}) {
+        require JSON::Pointer;
+        $decoded = JSON::Pointer->get($decoded, $config->{pointer});
+    }
+
+    unless ($decoded) {
+        _error("could not decode the content.");
+    }
+
+    return $decoded;
+}
+
+sub _decoder {
+    my ($config, $res) = @_;
+
     my $decoded;
     if ( my $decoder = $DECODERS{ lc $config->{decoder} } ) {
         $decoded = _decoding($config, $decoder, $res);
@@ -112,16 +129,6 @@ sub _decode {
             last;
         }
     }
-
-    if ($decoded && $config->{pointer}) {
-        require JSON::Pointer;
-        $decoded = JSON::Pointer->get($decoded, $config->{pointer});
-    }
-
-    unless ($decoded) {
-        _error("could not decode the content.");
-    }
-
     return $decoded;
 }
 
