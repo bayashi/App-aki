@@ -8,7 +8,7 @@ use Data::Printer qw//;
 use Encode qw//;
 use File::Spec;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 # Every decode routine MUST return the UNICODE string.
 our %DECODERS = (
@@ -255,11 +255,6 @@ sub _prepare_request {
         timeout => $config->{timeout},
     );
     $ua->env_proxy;
-    if ($config->{cookie}) {
-        die "wrong cookie file path: $config->{cookie}"
-            unless -e $config->{cookie};
-        $ua->cookie_jar({ file => $config->{cookie} });
-    }
     my $req = HTTP::Request->new(
         uc($config->{method}) => $config->{url},
     );
@@ -287,7 +282,6 @@ sub _merge_opt {
         'ie|in-enc=s' => \$config->{in_enc},
         'oe|out-enc=s' => \$config->{out_enc},
         'agent=s'     => \$config->{agent},
-        'cookie=s'    => \$config->{cookie},
         'color'       => \$config->{color},
         'raw'         => \$config->{raw},
         'verbose'     => \$config->{verbose},

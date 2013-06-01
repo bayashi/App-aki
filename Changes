@@ -1,5 +1,11 @@
 Revision history for Perl extension App::aki
 
+0.04    Sat Jun  1 23:30:09 JST 2013
+        - new feature: --rc option, seeL<aki#CONFIGURATION>
+        - new feature: be able to send request with cookie, --cookie=cookie/file/apth
+        - changed a way how to detect json.
+        - tiny fixes(wrong POD etc..)
+
 0.03    Sat Jun  1 18:58:00 JST 2013
         - added encoding option: in-enc/out-enc
         - supported unicode content correctly

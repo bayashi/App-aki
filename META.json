@@ -32,6 +32,7 @@
             "Data::MessagePack" : "0",
             "Data::Printer" : "0",
             "Encode" : "0",
+            "File::Spec" : "0",
             "Getopt::Long" : "0",
             "HTTP::Request" : "0",
             "JSON" : "0",
@@ -47,7 +48,7 @@
    "provides" : {
       "App::aki" : {
          "file" : "lib/App/aki.pm",
-         "version" : "0.03"
+         "version" : "0.04"
       }
    },
    "release_status" : "stable",
@@ -59,5 +60,5 @@
          "url" : "http://github.com/bayashi/App-aki"
       }
    },
-   "version" : "0.03"
+   "version" : "0.04"
 }
