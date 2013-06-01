@@ -1,4 +1,7 @@
 Revision history for Perl extension App::aki
 
+0.02    Sat Jun  1 14:57:41 JST 2013
+        - specify aki command in Build.PL
+
 0.01    Sat Jun  1 01:03:58 JST 2013
         - original version
