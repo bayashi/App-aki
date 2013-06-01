@@ -204,7 +204,7 @@ sub _prepare_request {
         agent   => $config->{agent} || __PACKAGE__. "/$VERSION",
         timeout => $config->{timeout},
     );
-#    $ua->env_proxy;
+    $ua->env_proxy;
     my $req = HTTP::Request->new(
         uc($config->{method}) => $config->{url},
     );
