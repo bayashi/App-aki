@@ -304,6 +304,7 @@ Dai Okabayashi E<lt>bayashi@cpan.orgE<gt>
 
 =head1 SEE ALSO
 
+aki was inspired from this tool.
 <http://stedolan.github.io/jq/>
 
 
