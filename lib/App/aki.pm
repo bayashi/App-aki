@@ -82,7 +82,7 @@ sub run {
     my $decoded = _decode($config, $res);
     my $dump    = _dumper($config, $decoded);
 
-    print Encode::encode('utf8', "---\n$dump\n---\n");
+    print Encode::encode($config->{out_enc}, "---\n$dump\n---\n");
 }
 
 sub _dumper {
@@ -140,7 +140,11 @@ sub _decoding {
 
     _load_class( _class2path($decoder->{class}) );
     _show_verbose('decode class', $decoder->{class}) if $config->{verbose};
-    return $decoder->{decode}->($res->content, $res->decoded_content);
+    my $content = $res->content;
+    if ($config->{in_enc} !~ m!^utf\-?8$!i) {
+        Encode::from_to($content, $config->{in_enc} => 'utf8');
+    }
+    return $decoder->{decode}->($content);
 }
 
 sub _error {
@@ -200,7 +204,7 @@ sub _prepare_request {
         agent   => $config->{agent} || __PACKAGE__. "/$VERSION",
         timeout => $config->{timeout},
     );
-    $ua->env_proxy;
+#    $ua->env_proxy;
     my $req = HTTP::Request->new(
         uc($config->{method}) => $config->{url},
     );
@@ -225,6 +229,8 @@ sub _merge_opt {
         'm|method=s'  => \$config->{method},
         'timeout=i'   => \$config->{timeout},
         'p|pointer=s' => \$config->{pointer},
+        'ie|in-enc=s' => \$config->{in_enc},
+        'oe|out-enc=s' => \$config->{out_enc},
         'agent=s'     => \$config->{agent},
         'color'       => \$config->{color},
         'raw'         => \$config->{raw},
@@ -242,6 +248,9 @@ sub _merge_opt {
     $config->{method}  ||= 'GET';
     $config->{timeout} ||= 10;
     $config->{color}   ||= 0;
+
+    $config->{out_enc} ||= 'utf8';
+    $config->{in_enc}  ||= 'utf8';
 
     $config->{url} = shift @argv;
 }
