@@ -113,12 +113,23 @@ sub _decode {
         last;
     }
 
-    if ($config->{pointer}) {
+    if ($decoded && $config->{pointer}) {
         require JSON::Pointer;
         $decoded = JSON::Pointer->get($decoded, $config->{pointer});
     }
 
+    unless ($decoded) {
+        _error("could not decode the content.");
+    }
+
     return $decoded;
+}
+
+sub _error {
+    my $msg = shift;
+
+    warn "ERROR: $msg\n";
+    exit;
 }
 
 sub _load_class {
