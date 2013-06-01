@@ -1,5 +1,12 @@
 Revision history for Perl extension App::aki
 
+0.03    Sat Jun  1 18:58:00 JST 2013
+        - added encoding option: in-enc/out-enc
+        - supported unicode content correctly
+        - call env_proxy before request
+        - tiny pod enhancement
+        - refactor
+
 0.02    Sat Jun  1 14:57:41 JST 2013
         - specify aki command in Build.PL
 

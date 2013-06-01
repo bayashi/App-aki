@@ -7,7 +7,7 @@ use HTTP::Request;
 use Data::Printer qw//;
 use Encode qw//;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 # Every decode routine MUST return the UNICODE string.
 our %DECODERS = (
