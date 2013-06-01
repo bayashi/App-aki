@@ -13,7 +13,6 @@ my $builder = Module::Build->new(
     build_requires      => {
         'Test::More' => 0.88,
         'Test::Mock::LWP' => 0,
-        'Test::Mock::HTTP::Response' => 0,
         'Capture::Tiny' => 0,
         'Exporter' => 0,
     },
