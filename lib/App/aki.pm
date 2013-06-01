@@ -143,13 +143,7 @@ sub _class2path {
 sub _request {
     my $config = shift;
 
-    my $ua = LWP::UserAgent->new(
-        agent   => $config->{agent} || __PACKAGE__. "/$VERSION",
-        timeout => $config->{timeout},
-    );
-    my $req = HTTP::Request->new(
-        uc($config->{method}) => $config->{url},
-    );
+    my ($ua, $req) = _prepare_request($config);
 
     if ($config->{verbose}) {
         _show_verbose('request', $req->as_string);
@@ -168,6 +162,20 @@ sub _request {
     else {
         die $res->status_line;
     }
+}
+
+sub _prepare_request {
+    my $config = shift;
+
+    my $ua = LWP::UserAgent->new(
+        agent   => $config->{agent} || __PACKAGE__. "/$VERSION",
+        timeout => $config->{timeout},
+    );
+    my $req = HTTP::Request->new(
+        uc($config->{method}) => $config->{url},
+    );
+
+    return($ua, $req);
 }
 
 sub _show_verbose {
