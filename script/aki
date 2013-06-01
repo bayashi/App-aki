@@ -40,6 +40,19 @@ aki - The command-line data processor for web content
         qux     "foobar"
     ---
 
+
+=head1 CONFIGURATION
+
+C<aki> command will look for a configuration file before reading its command line parameters.
+
+The default configuration file is C<.akirc> but you can specify it by C<--rc> option. And the location of a configuration file is C<$HOME> but if the C<AKIRC_DIR> environment variable is set, C<aki> will look for config in that directory or current.
+
+The configuration file is just a list of names and values, separated by colons. Values that take lists are just space separated. A sample configuration file might read:
+
+    color: 1
+    agent: MyAgent/1.0
+
+
 =head1 AUTHOR
 
 Dai Okabayashi E<lt>bayashi@cpan.orgE<gt>
