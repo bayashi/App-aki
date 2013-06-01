@@ -17,6 +17,7 @@ aki - The command-line data processor for web content
 
 =head2 OPTIONS
 
+    -d   --decoder       specify deoder(default: auto detect)
          --agent         user agent
          --timeout       connection timeout
     -m,  --method        HTTP method(default: GET)

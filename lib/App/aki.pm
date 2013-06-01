@@ -8,9 +8,8 @@ use Data::Printer qw//;
 
 our $VERSION = '0.01';
 
-our @DECODERS = (
-    +{
-        name   => 'json',
+our %DECODERS = (
+    json => +{
         class  => 'JSON',
         detect => sub {
             my $res = shift;
@@ -23,8 +22,7 @@ our @DECODERS = (
             $json->decode($content);
         },
     },
-    +{
-        name   => 'xml',
+    xml => +{
         class  => 'XML::TreePP',
         detect => sub {
             my $res = shift;
@@ -37,8 +35,7 @@ our @DECODERS = (
             $xml->parse($content);
         },
     },
-    +{
-        name   => 'yaml',
+    yaml => +{
         class  => 'YAML::Syck',
         detect => sub {
             my $res = shift;
@@ -50,8 +47,7 @@ our @DECODERS = (
             YAML::Syck::Load($content);
         },
     },
-    +{
-        name   => 'messagepack',
+    messagepack => +{
         class  => 'Data::MessagePack',
         detect => sub {
             my $res = shift;
@@ -105,12 +101,16 @@ sub _decode {
     my ($config, $res) = @_;
 
     my $decoded;
-    for my $decoder (@DECODERS) {
-        next unless $decoder->{detect}->($res);
-        _load_class( _class2path($decoder->{class}) );
-        _show_verbose('decode class', $decoder->{class}) if $config->{verbose};
-        $decoded = $decoder->{decode}->($res->content);
-        last;
+    if ( my $decoder = $DECODERS{ lc $config->{decoder} } ) {
+        $decoded = _decoding($config, $decoder, $res);
+    }
+    else {
+        for my $name (keys %DECODERS) {
+            my $decoder = $DECODERS{$name};
+            next unless $decoder->{detect}->($res);
+            $decoded = _decoding($config, $decoder, $res);
+            last;
+        }
     }
 
     if ($decoded && $config->{pointer}) {
@@ -123,6 +123,14 @@ sub _decode {
     }
 
     return $decoded;
+}
+
+sub _decoding {
+    my ($config, $decoder, $res) = @_;
+
+    _load_class( _class2path($decoder->{class}) );
+    _show_verbose('decode class', $decoder->{class}) if $config->{verbose};
+    return $decoder->{decode}->($res->content);
 }
 
 sub _error {
@@ -202,6 +210,7 @@ sub _merge_opt {
     Getopt::Long::Configure('bundling');
     GetOptionsFromArray(
         \@argv,
+        'd|decoder=s' => \$config->{decoder},
         'm|method=s'  => \$config->{method},
         'timeout=i'   => \$config->{timeout},
         'p|pointer=s' => \$config->{pointer},
