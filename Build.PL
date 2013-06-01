@@ -29,6 +29,7 @@ my $builder = Module::Build->new(
         'YAML::Syck' => 0,
         'Data::MessagePack' => 0,
     },
+    script_files        => [ 'script/aki' ],
     add_to_cleanup      => [ 'App-aki-*' ],
     meta_merge     => {
       resources => {
