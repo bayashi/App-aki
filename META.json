@@ -48,7 +48,7 @@
    "provides" : {
       "App::aki" : {
          "file" : "lib/App/aki.pm",
-         "version" : "0.05"
+         "version" : "0.06"
       }
    },
    "release_status" : "stable",
@@ -60,5 +60,5 @@
          "url" : "http://github.com/bayashi/App-aki"
       }
    },
-   "version" : "0.05"
+   "version" : "0.06"
 }

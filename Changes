@@ -1,5 +1,8 @@
 Revision history for Perl extension App::aki
 
+0.06    Sun Jun  9 00:35:57 JST 2013
+        - fixed warnings in perl 5.12 or later
+
 0.05    Sun Jun  9 00:16:39 JST 2013
         - added new options(print_escapes, stderr, indent)
 
