@@ -85,7 +85,13 @@ sub run {
     my $decoded = _decode($config, $res);
     my $dump    = _dumper($config, $decoded);
 
-    print Encode::encode($config->{out_enc}, "---\n$dump\n---\n");
+    my $output = Encode::encode($config->{out_enc}, "---\n$dump\n---\n");
+    if ($config->{stderr}) {
+        print STDERR $output;
+    }
+    else {
+        print STDOUT $output;
+    }
 }
 
 sub _read_rc {
@@ -285,6 +291,7 @@ sub _merge_opt {
         'agent=s'       => \$config->{agent},
         'color'         => \$config->{color},
         'print_escapes' => \$config->{print_escapes},
+        'stderr'        => \$config->{stderr},
         'raw'           => \$config->{raw},
         'verbose'       => \$config->{verbose},
         'rc=s'          => \$config->{rc},
