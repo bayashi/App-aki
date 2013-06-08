@@ -181,7 +181,7 @@ sub _decoder {
     my ($config, $res) = @_;
 
     my $decoded;
-    if ( my $decoder = $DECODERS{ lc $config->{decoder} } ) {
+    if ( my $decoder = $DECODERS{ lc($config->{decoder} || '') } ) {
         $decoded = _decoding($config, $decoder, $res);
     }
     else {
