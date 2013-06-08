@@ -150,6 +150,7 @@ sub _dumper {
         colored       => $config->{color},
         index         => 0,
         print_escapes => $config->{print_escapes},
+        indent        => $config->{indent},
     );
     $dump =~ s!^[^\n]+\n!!;
     $dump =~ s![\r\n]}$!!;
@@ -292,6 +293,7 @@ sub _merge_opt {
         'color'         => \$config->{color},
         'print_escapes' => \$config->{print_escapes},
         'stderr'        => \$config->{stderr},
+        'indent=i'      => \$config->{indent},
         'raw'           => \$config->{raw},
         'verbose'       => \$config->{verbose},
         'rc=s'          => \$config->{rc},
@@ -311,6 +313,8 @@ sub _merge_opt {
 
     $config->{out_enc} ||= 'utf8';
     $config->{in_enc}  ||= 'utf8';
+
+    $config->{indent}  ||= 4;
 
     $config->{url} = shift @argv;
 }
