@@ -140,9 +140,9 @@ sub _dumper {
 
     my $dump = Data::Printer::p(
         $hash,
-        return_value => 'dump',
-        colored      => $config->{color},
-        index        => 0,
+        return_value  => 'dump',
+        colored       => $config->{color},
+        index         => 0,
         print_escapes => $config->{print_escapes},
     );
     $dump =~ s!^[^\n]+\n!!;
@@ -276,19 +276,19 @@ sub _merge_opt {
     Getopt::Long::Configure('bundling');
     GetOptionsFromArray(
         \@argv,
-        'd|decoder=s' => \$config->{decoder},
-        'm|method=s'  => \$config->{method},
-        'timeout=i'   => \$config->{timeout},
-        'p|pointer=s' => \$config->{pointer},
-        'ie|in-enc=s' => \$config->{in_enc},
-        'oe|out-enc=s' => \$config->{out_enc},
-        'agent=s'     => \$config->{agent},
-        'color'       => \$config->{color},
+        'd|decoder=s'   => \$config->{decoder},
+        'm|method=s'    => \$config->{method},
+        'timeout=i'     => \$config->{timeout},
+        'p|pointer=s'   => \$config->{pointer},
+        'ie|in-enc=s'   => \$config->{in_enc},
+        'oe|out-enc=s'  => \$config->{out_enc},
+        'agent=s'       => \$config->{agent},
+        'color'         => \$config->{color},
         'print_escapes' => \$config->{print_escapes},
-        'raw'         => \$config->{raw},
-        'verbose'     => \$config->{verbose},
-        'rc=s'        => \$config->{rc},
-        'h|help'      => sub {
+        'raw'           => \$config->{raw},
+        'verbose'       => \$config->{verbose},
+        'rc=s'          => \$config->{rc},
+        'h|help'        => sub {
             _show_usage(1);
         },
         'v|version'   => sub {
