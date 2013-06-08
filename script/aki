@@ -26,6 +26,9 @@ aki - The command-line data processor for web content
     -ie, --in-enc        input encoding(default: utf8)
     -oe, --out-enc       output encoding(default: utf8)
          --color         colorize the result
+         --print_escapes show non-printable chars as "\n", "\t", etc.
+         --stderr        print to STDERR(default: STDOUT)
+         --indent        how many spaces in each indent(default: 4)
          --raw           show raw content
          --verbose       show verbose information
 
