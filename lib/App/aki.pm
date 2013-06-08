@@ -8,7 +8,7 @@ use Data::Printer qw//;
 use Encode qw//;
 use File::Spec;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 # Every decode routine MUST return the UNICODE string.
 our %DECODERS = (

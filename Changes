@@ -1,5 +1,8 @@
 Revision history for Perl extension App::aki
 
+0.05    Sun Jun  9 00:16:39 JST 2013
+        - added new options(print_escapes, stderr, indent)
+
 0.04    Sat Jun  1 23:30:09 JST 2013
         - new feature: --rc option, seeL<aki#CONFIGURATION>
         - new feature: be able to send request with cookie, --cookie=cookie/file/apth
