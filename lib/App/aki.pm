@@ -97,6 +97,8 @@ sub run {
 sub _read_rc {
     my $rc_file = shift;
 
+    local %ENV = %ENV;
+
     my %config;
     for my $dir ('/etc/', $ENV{AKIRC_DIR}, $ENV{HOME}, '.') {
         next unless $dir;
