@@ -143,6 +143,7 @@ sub _dumper {
         return_value => 'dump',
         colored      => $config->{color},
         index        => 0,
+        print_escapes => $config->{print_escapes},
     );
     $dump =~ s!^[^\n]+\n!!;
     $dump =~ s![\r\n]}$!!;
@@ -283,6 +284,7 @@ sub _merge_opt {
         'oe|out-enc=s' => \$config->{out_enc},
         'agent=s'     => \$config->{agent},
         'color'       => \$config->{color},
+        'print_escapes' => \$config->{print_escapes},
         'raw'         => \$config->{raw},
         'verbose'     => \$config->{verbose},
         'rc=s'        => \$config->{rc},
