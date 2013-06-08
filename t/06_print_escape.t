@@ -11,7 +11,7 @@ use Test::More;
             [ 'res', 'content_type' => sub { 'application/json' } ],
         ],
     );
-    is $stdout, <<"_EXPECTED_", 'pointer';
+    is $stdout, <<"_EXPECTED_", 'print_escape';
 ---
     foo   "1\\t2\\n"
 ---
