@@ -24,6 +24,7 @@ my $builder = Module::Build->new(
         'Pod::Usage' => 0,
         'LWP::UserAgent' => 0,
         'HTTP::Request' => 0,
+        'HTTP::Cookies' => 0,
         'Data::Printer' => 0,
         'JSON::Pointer' => 0,
         'JSON' => 0,

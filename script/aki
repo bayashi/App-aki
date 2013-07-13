@@ -23,6 +23,7 @@ aki - The command-line data processor for web content
     -m,  --method        HTTP method(default: GET)
     -H,  --header        request header
     -b,  --cookie        cookie file path for request
+    -c,  --cookie-jar    file path for saving response cookie
     -u,  --user          basic authentication credentials( "user:passwd" )
     -p,  --pointer       JSON pointer string(See: JSON::Pointer)
     -ie, --in-enc        input encoding(default: utf8)

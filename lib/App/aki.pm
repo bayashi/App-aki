@@ -4,6 +4,7 @@ use warnings;
 use Getopt::Long qw/GetOptionsFromArray/;
 use LWP::UserAgent;
 use HTTP::Request;
+use HTTP::Cookies;
 use Data::Printer qw//;
 use Encode qw//;
 use File::Spec;
@@ -76,6 +77,12 @@ sub run {
     _merge_opt($config, @argv);
 
     my $res = _request($config);
+
+    if ($config->{cookie_jar}) {
+        my $cookie_jar = HTTP::Cookies->new;
+        $cookie_jar->extract_cookies($res);
+        $cookie_jar->save($config->{cookie_jar});
+    }
 
     if ($config->{raw}) {
         print $res->content;
@@ -305,6 +312,7 @@ sub _merge_opt {
         'timeout=i'     => \$config->{timeout},
         'H|header=s@'   => \$config->{header},
         'b|cookie=s'    => \$config->{cookie},
+        'c|cookie-jar=s' => \$config->{cookie_jar},
         'u|user=s'      => \$config->{user},
         'p|pointer=s'   => \$config->{pointer},
         'ie|in-enc=s'   => \$config->{in_enc},
