@@ -1,5 +1,8 @@
 Revision history for Perl extension App::aki
 
+0.08    Sat Jul 13 23:33:26 JST 2013
+        - NEW OPTION: '--referer' for request header
+
 0.07    Sat Jul 13 22:47:19 JST 2013
         - rcfile has been supported by Config::CmdRC
         - NEW OPTIONS:
