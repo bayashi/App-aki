@@ -17,6 +17,7 @@ my $builder = Module::Build->new(
         'Exporter' => 0,
         'Test::Fake::HTTPD' => 0,
         'HTTP::Response' => 0,
+        'File::Temp' => 0,
     },
     requires => {
         'perl' => '5.008001',
