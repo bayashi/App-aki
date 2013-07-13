@@ -275,6 +275,11 @@ sub _prepare_request {
         uc($config->{method}) => $config->{url},
     );
 
+    if ($config->{user}) {
+        my ($user, $passwd) = split /:/, $config->{user};
+        $req->authorization_basic($user, $passwd);
+    }
+
     return($ua, $req);
 }
 
@@ -295,6 +300,7 @@ sub _merge_opt {
         'm|method=s'    => \$config->{method},
         'timeout=i'     => \$config->{timeout},
         'H|header=s@'   => \$config->{header},
+        'u|user=s'      => \$config->{user},
         'p|pointer=s'   => \$config->{pointer},
         'ie|in-enc=s'   => \$config->{in_enc},
         'oe|out-enc=s'  => \$config->{out_enc},
