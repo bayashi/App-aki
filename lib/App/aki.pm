@@ -280,6 +280,10 @@ sub _prepare_request {
         $req->authorization_basic($user, $passwd);
     }
 
+    if ($config->{cookie}) {
+        $ua->cookie_jar({ file => $config->{cookie} });
+    }
+
     return($ua, $req);
 }
 
@@ -300,6 +304,7 @@ sub _merge_opt {
         'm|method=s'    => \$config->{method},
         'timeout=i'     => \$config->{timeout},
         'H|header=s@'   => \$config->{header},
+        'b|cookie=s'    => \$config->{cookie},
         'u|user=s'      => \$config->{user},
         'p|pointer=s'   => \$config->{pointer},
         'ie|in-enc=s'   => \$config->{in_enc},
