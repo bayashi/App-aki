@@ -15,6 +15,8 @@ my $builder = Module::Build->new(
         'Test::Mock::LWP' => 0,
         'Capture::Tiny' => 0,
         'Exporter' => 0,
+        'Test::Fake::HTTPD' => 0,
+        'HTTP::Response' => 0,
     },
     requires => {
         'perl' => '5.008001',

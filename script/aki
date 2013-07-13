@@ -21,6 +21,7 @@ aki - The command-line data processor for web content
          --agent         user agent
          --timeout       connection timeout
     -m,  --method        HTTP method(default: GET)
+    -H,  --header        request header
          --cookie        cookie file path for request
     -p,  --pointer       JSON pointer string(See: JSON::Pointer)
     -ie, --in-enc        input encoding(default: utf8)

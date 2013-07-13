@@ -264,6 +264,12 @@ sub _prepare_request {
         agent   => $config->{agent} || __PACKAGE__. "/$VERSION",
         timeout => $config->{timeout},
     );
+    if ($config->{header} && ref $config->{header} eq 'ARRAY') {
+        for my $h (@{$config->{header}}) {
+            my ($field, $value) = split /:\s+?/, $h;
+            $ua->default_header($field => $value);
+        }
+    }
     $ua->env_proxy;
     my $req = HTTP::Request->new(
         uc($config->{method}) => $config->{url},
@@ -288,6 +294,7 @@ sub _merge_opt {
         'd|decoder=s'   => \$config->{decoder},
         'm|method=s'    => \$config->{method},
         'timeout=i'     => \$config->{timeout},
+        'H|header=s@'   => \$config->{header},
         'p|pointer=s'   => \$config->{pointer},
         'ie|in-enc=s'   => \$config->{in_enc},
         'oe|out-enc=s'  => \$config->{out_enc},
