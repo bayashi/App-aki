@@ -18,6 +18,9 @@
          "requires" : {
             "Capture::Tiny" : "0",
             "Exporter" : "0",
+            "File::Temp" : "0",
+            "HTTP::Response" : "0",
+            "Test::Fake::HTTPD" : "0",
             "Test::Mock::LWP" : "0",
             "Test::More" : "0.88"
          }
@@ -29,11 +32,13 @@
       },
       "runtime" : {
          "requires" : {
+            "Config::CmdRC" : "0",
             "Data::MessagePack" : "0",
             "Data::Printer" : "0",
             "Encode" : "0",
             "File::Spec" : "0",
             "Getopt::Long" : "0",
+            "HTTP::Cookies" : "0",
             "HTTP::Request" : "0",
             "JSON" : "0",
             "JSON::Pointer" : "0",
@@ -48,7 +53,7 @@
    "provides" : {
       "App::aki" : {
          "file" : "lib/App/aki.pm",
-         "version" : "0.06"
+         "version" : "0.07"
       }
    },
    "release_status" : "stable",
@@ -60,5 +65,5 @@
          "url" : "http://github.com/bayashi/App-aki"
       }
    },
-   "version" : "0.06"
+   "version" : "0.07"
 }

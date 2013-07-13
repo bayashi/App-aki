@@ -1,5 +1,13 @@
 Revision history for Perl extension App::aki
 
+0.07    Sat Jul 13 22:47:19 JST 2013
+        - rcfile has been supported by Config::CmdRC
+        - NEW OPTIONS:
+            - '--cookie' for request with cookie
+            - '--cookie-jar' for saving response cookie
+            - '--user' for BASIC authentication
+            - '--header' for adding a custom http request header
+
 0.06    Sun Jun  9 00:35:57 JST 2013
         - fixed warnings in perl 5.12 or later
 
