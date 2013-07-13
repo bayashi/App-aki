@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use t::akiUtil qw/result/;
-use Test::More;
+use Test::More skip_all => 'Temporarily, the specific rc file is not supported.';
 
 {
     my @mocks = (

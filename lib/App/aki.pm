@@ -8,6 +8,7 @@ use HTTP::Cookies;
 use Data::Printer qw//;
 use Encode qw//;
 use File::Spec;
+use Config::CmdRC '.akirc';
 
 our $VERSION = '0.06';
 
@@ -67,13 +68,11 @@ our %DECODERS = (
     },
 );
 
-our $DEFAULT_RCFILE_NAME = '.akirc';
-
 sub run {
     my $self = shift;
     my @argv = @_;
 
-    my $config = _read_rc( _rc_file(@argv) );
+    my $config = RC();
     _merge_opt($config, @argv);
 
     my $res = _request($config);
@@ -99,55 +98,6 @@ sub run {
     else {
         print STDOUT $output;
     }
-}
-
-sub _read_rc {
-    my $rc_file = shift;
-
-    local %ENV = %ENV;
-
-    my %config;
-    for my $dir ('/etc/', $ENV{AKIRC_DIR}, $ENV{HOME}, '.') {
-        next unless $dir;
-        my $file = File::Spec->catfile($dir, $rc_file);
-        next unless -e $file;
-        _parse_rc($file => \%config);
-    }
-    return \%config;
-}
-
-sub _parse_rc {
-    my ($file, $config) = @_;
-
-    open my $fh, '<', $file;
-    while (<$fh>) {
-        chomp;
-        next if /\A\s*\Z/sm;
-        if (/\A(\w+):\s*(.+)\Z/sm) {
-            my ($key, $value) = ($1, $2);
-            if ($key eq 'file') {
-                push @{$config->{$key}}, $value;
-            }
-            else {
-                $config->{$key} = $value;
-            }
-        }
-    }
-    close $fh;
-}
-
-sub _rc_file {
-    my @argv = @_;
-
-    my $rc = 0;
-    for my $opt (@argv) {
-        if ($opt =~ m!--rc=([^\s]+)!) {
-            return $1;
-        }
-        return $opt if $rc == 1;
-        $rc = 1 if $opt eq '--rc';
-    }
-    return $DEFAULT_RCFILE_NAME;
 }
 
 sub _dumper {
@@ -324,7 +274,7 @@ sub _merge_opt {
         'indent=i'      => \$config->{indent},
         'raw'           => \$config->{raw},
         'verbose'       => \$config->{verbose},
-        'rc=s'          => \$config->{rc},
+#        'rc=s'          => \$config->{rc},
         'h|help'        => sub {
             _show_usage(1);
         },
