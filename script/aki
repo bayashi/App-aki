@@ -22,6 +22,7 @@ aki - The command-line data processor for web content
          --timeout       connection timeout
     -m,  --method        HTTP method(default: GET)
     -H,  --header        request header
+    -e , --referer       referer
     -b,  --cookie        cookie file path for request
     -c,  --cookie-jar    file path for saving response cookie
     -u,  --user          basic authentication credentials( "user:passwd" )

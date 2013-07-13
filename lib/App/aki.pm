@@ -227,6 +227,9 @@ sub _prepare_request {
             $ua->default_header($field => $value);
         }
     }
+    if ($config->{referer}) {
+        $ua->default_header(referer => $config->{referer});
+    }
     $ua->env_proxy;
     my $req = HTTP::Request->new(
         uc($config->{method}) => $config->{url},
@@ -261,6 +264,7 @@ sub _merge_opt {
         'm|method=s'    => \$config->{method},
         'timeout=i'     => \$config->{timeout},
         'H|header=s@'   => \$config->{header},
+        'e|referer=s'   => \$config->{referer},
         'b|cookie=s'    => \$config->{cookie},
         'c|cookie-jar=s' => \$config->{cookie_jar},
         'u|user=s'      => \$config->{user},
