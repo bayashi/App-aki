@@ -1,5 +1,8 @@
 Revision history for Perl extension App::aki
 
+0.10    Mon Jul 15 00:29:40 JST 2013
+        - '--rc' option has been treated by Config::CmdRC
+
 0.09    Sun Jul 14 10:17:29 JST 2013
         - POD enhancement
         - tiny fixes
