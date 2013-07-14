@@ -1,5 +1,9 @@
 Revision history for Perl extension App::aki
 
+0.09    Sun Jul 14 10:17:29 JST 2013
+        - POD enhancement
+        - tiny fixes
+
 0.08    Sat Jul 13 23:33:26 JST 2013
         - NEW OPTION: '--referer' for request header
 
