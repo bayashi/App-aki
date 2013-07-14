@@ -44,12 +44,34 @@ aki - The command-line data processor for web content
     -h,  --help          show this help
     -v,  --version       show the version
 
-=head2 EXAMPLE
+
+=head1 EXAMPLE
+
+Easy Example:
 
     $ aki http://example.com/json --pointer '/foo/bar/0'
     ---
         baz     123
         qux     "foobar"
+    ---
+
+Example with OAuth header:
+
+    $ aki https://api.example.com/1.1/statuses/home_timeline.json --header 'Authorization: OAuth oauth_consumer_key="OAUTH_CONSUMER_KEY", oauth_nonce="OAUTH_NONCE", oauth_signature="OAUTH_SIGNATURE", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1373763215", oauth_token="OAUTH_TOKEN", oauth_version="1.0"' --pointer '/0/entities'
+
+    ---
+        urls            [
+            {
+                display_url    "example.com/foo",
+                expanded_url   "example.com/bar",
+                indices        [
+                    50,
+                    72
+                ],
+                url            "example.com/baz"
+            }
+        ],
+        user_mentions   []
     ---
 
 

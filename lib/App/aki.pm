@@ -319,16 +319,20 @@ App::aki - The command-line data processor for web content
 
 =head1 SYNOPSIS
 
-See: L<aki> command.
-
-    use App::aki;
-    App::aki->run(@args);
+    $ aki http://example.com/json --pointer '/foo/bar/0'
+    ---
+        baz     123
+        qux     "foobar"
+    ---
 
 
 =head1 DESCRIPTION
 
-App::aki
+C<App::aki> is the module for data processor in the command-line.
 
+The L<aki> command sends a request to any endpoint. Then the response is automatically detected and shown up as the dump of human readable result. Moreover, '--pointer' option can specify values what you want.
+
+See: L<aki> command to know more details.
 
 =head1 METHODS
 
@@ -350,8 +354,11 @@ Dai Okabayashi E<lt>bayashi@cpan.orgE<gt>
 
 =head1 SEE ALSO
 
-aki was inspired from this tool.
-<http://stedolan.github.io/jq/>
+L<aki>
+
+C<aki> was inspired from these tools.
+
+curl:<http://curl.haxx.se/>, jq:<http://stedolan.github.io/jq/>.
 
 
 =head1 LICENSE
