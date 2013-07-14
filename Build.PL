@@ -20,7 +20,7 @@ my $builder = Module::Build->new(
         'File::Temp' => 0,
     },
     requires => {
-        'perl' => '5.008001',
+        'perl' => '5.008005',
         'Getopt::Long' => 0,
         'Pod::Usage' => 0,
         'LWP::UserAgent' => 0,
