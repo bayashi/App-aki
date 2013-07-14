@@ -26,3 +26,4 @@ sub result {
     return($stdout, $stderr, @result);
 }
 
+1;
