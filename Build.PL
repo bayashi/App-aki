@@ -35,7 +35,7 @@ my $builder = Module::Build->new(
         'Data::MessagePack' => 0,
         'Encode' => 0,
         'File::Spec' => 0,
-        'Config::CmdRC' => 0,
+        'Config::CmdRC' => 0.06,
     },
     script_files        => [ 'script/aki' ],
     add_to_cleanup      => [ 'App-aki-*' ],
