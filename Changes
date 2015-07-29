@@ -1,5 +1,8 @@
 Revision history for Perl extension App::aki
 
+0.11    Wed Jul 29 21:40:58 JST 2015
+        - support Data:Printer 0.36
+
 0.10    Mon Jul 15 00:29:40 JST 2013
         - '--rc' option has been treated by Config::CmdRC
 

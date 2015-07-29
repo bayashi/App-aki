@@ -30,11 +30,11 @@ _XML_
     members   {
         member   [
             {
-                id     001,
+                id     "001",
                 name   "aki"
             },
             {
-                id     002,
+                id     "002",
                 name   "yui"
             }
         ]
@@ -70,11 +70,11 @@ _XML_
     members   {
         member   [
             {
-                id     001,
+                id     "001",
                 name   "天野アキ"
             },
             {
-                id     002,
+                id     "002",
                 name   "足立ユイ"
             }
         ]
