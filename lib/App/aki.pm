@@ -10,7 +10,7 @@ use Encode qw//;
 use File::Spec;
 use Config::CmdRC '.akirc';
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 # Every decode routine MUST return the UNICODE string.
 our %DECODERS = (
