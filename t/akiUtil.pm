@@ -12,6 +12,8 @@ our @EXPORT_OK = qw/
 sub result {
     my ($cmd_args, $mock_args) = @_;
 
+    unshift @{$mock_args}, ['ua', 'request' => sub { HTTP::Response->new } ];
+
     for my $r (@{$mock_args}) {
         my $mock = shift @{$r};
         my $mock_obj = ($mock eq 'res') ? $Mock_response
